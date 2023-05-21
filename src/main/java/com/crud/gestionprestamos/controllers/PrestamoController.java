@@ -21,5 +21,4 @@ public class PrestamoController {
     public List<PrestamoDTO> consultarPrestamos() {
         return repositorio.findAll().stream().map(PrestamoDTO::new).collect(Collectors.toList());
     }
-
 }

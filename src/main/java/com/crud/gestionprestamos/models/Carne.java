@@ -1,6 +1,5 @@
 package com.crud.gestionprestamos.models;
 
-import com.crud.gestionprestamos.controllers.dtos.ClienteDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

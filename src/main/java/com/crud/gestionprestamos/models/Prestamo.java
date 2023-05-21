@@ -14,11 +14,11 @@ public class Prestamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Column (name = "inicio", nullable = false)
     private String inicio;
 
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Column (name = "fin", nullable = false)
     private String fin;
 

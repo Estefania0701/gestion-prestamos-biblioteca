@@ -1,11 +1,8 @@
 package com.crud.gestionprestamos.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,16 +20,7 @@ public class Libro {
     @Column (name = "autor", length = 50, nullable = false)
     private String autor;
 
-    @Column (name = "genero", length = 50, nullable = false)
-    private String genero;
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "formatos_libros",
-            joinColumns = @JoinColumn(name = "libro_id", nullable = false, referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="formato_id", nullable = false, referencedColumnName = "id")
-    )
-    private List<Formato> formatos;
-
+    @ManyToOne
+    @JoinColumn(name = "genero_id", nullable = false, referencedColumnName = "id")
+    private Genero genero;
 }

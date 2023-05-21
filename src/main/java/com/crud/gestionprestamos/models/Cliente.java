@@ -1,6 +1,5 @@
 package com.crud.gestionprestamos.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import java.util.List;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column (name = "nombre", length = 50, nullable = false)
@@ -23,18 +21,21 @@ public class Cliente {
     @Column (name = "apellido", length = 50, nullable = false)
     private String apellido;
 
-    @Column (name = "identificacion", length = 50, nullable = false)
-    private Long identificacion;
-
     @Column (name = "celular", length = 50, nullable = false)
     private Long celular;
 
     @Column (name = "direccion", length = 255, nullable = false)
     private String direccion;
 
-    // Carne del cliente
-    @JsonIgnore // para
     @OneToOne(mappedBy = "cliente")
     @PrimaryKeyJoinColumn
     private Carne carne;
+
+    @ManyToMany
+    @JoinTable (
+            name = "generos_fav_clientes",
+            joinColumns = @JoinColumn(name = "cliente_id", nullable = false, referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "genero_id", nullable = false, referencedColumnName = "id")
+    )
+    private List<Genero> generos_favoritos;
 }
