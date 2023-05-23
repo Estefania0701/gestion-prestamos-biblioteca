@@ -2,6 +2,7 @@ package com.crud.gestionprestamos.controllers.dtos;
 
 import com.crud.gestionprestamos.models.Cliente;
 import com.crud.gestionprestamos.models.Genero;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClienteDTO {
 
     public ClienteDTO(Cliente cliente) {
@@ -19,7 +21,7 @@ public class ClienteDTO {
         this.celular = cliente.getCelular();
         this.direccion = cliente.getDireccion();
         this.carne = cliente.getCarne().getNumero(); // solo obtener numero del carnet
-        this.generos_favoritos = crearListaGeneros(cliente.getGeneros_favoritos());
+        this.generosFavoritos = crearListaGeneros(cliente.getGenerosFavoritos());
     }
 
     private Long id;
@@ -28,7 +30,7 @@ public class ClienteDTO {
     private Long celular;
     private String direccion;
     private Long carne;
-    private List<String> generos_favoritos;
+    private List<String> generosFavoritos;
 
     private List<String> crearListaGeneros (List<Genero> generos) {
         // Devuelve una lista con los géneros

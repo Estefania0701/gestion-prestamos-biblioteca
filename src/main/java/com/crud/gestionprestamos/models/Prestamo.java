@@ -27,7 +27,10 @@ public class Prestamo {
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "libro_id", nullable = false, referencedColumnName = "id")
-    private Libro libro;
+    @JoinColumns({
+            @JoinColumn(name = "libro_id", referencedColumnName = "libro_id"),
+            @JoinColumn(name = "formato_id", referencedColumnName = "formato_id")
+    })
+    private EjemplarLibro ejemplarLibro;
 
 }

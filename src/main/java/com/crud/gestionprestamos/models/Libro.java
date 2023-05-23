@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -23,4 +25,12 @@ public class Libro {
     @ManyToOne
     @JoinColumn(name = "genero_id", nullable = false, referencedColumnName = "id")
     private Genero genero;
+
+    @ManyToMany
+    @JoinTable (
+            name = "ejemplares_libros",
+            joinColumns = @JoinColumn(name = "libro_id", nullable = false, referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "formato_id", nullable = false, referencedColumnName = "id")
+    )
+    private List<Formato> formatos;
 }

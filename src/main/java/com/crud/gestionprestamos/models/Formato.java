@@ -10,17 +10,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table (name = "generos")
-public class Genero {
+@Table (name = "formatos")
+public class Formato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "genero", length = 50, nullable = false)
-    private String genero;
+    @Column (name = "formato", length = 50, nullable = false)
+    private String formato;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "generosFavoritos")
-    private List<Cliente> clientes;
+    @ManyToMany(mappedBy = "formatos")
+    private List<Libro> libros;
 }

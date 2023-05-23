@@ -37,5 +37,5 @@ public class Cliente {
             joinColumns = @JoinColumn(name = "cliente_id", nullable = false, referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genero_id", nullable = false, referencedColumnName = "id")
     )
-    private List<Genero> generos_favoritos;
+    private List<Genero> generosFavoritos;
 }

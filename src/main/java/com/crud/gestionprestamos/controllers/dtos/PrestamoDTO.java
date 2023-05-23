@@ -1,16 +1,13 @@
 package com.crud.gestionprestamos.controllers.dtos;
 
-import com.crud.gestionprestamos.models.Cliente;
-import com.crud.gestionprestamos.models.Libro;
-import com.crud.gestionprestamos.models.Prestamo;
+import com.crud.gestionprestamos.models.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrestamoDTO {
 
     public PrestamoDTO(Prestamo prestamo) {
@@ -18,36 +15,46 @@ public class PrestamoDTO {
         this.inicio = prestamo.getInicio();;
         this.fin = prestamo.getFin();
         this.cliente = crearClienteResumen(prestamo.getCliente());
-        this.libro = crearLibroResumen(prestamo.getLibro());
+        this.libro = crearLibroResumen(prestamo.getEjemplarLibro());
     }
 
     private Long id;
     private String inicio;
     private String fin;
-    private Map<String, String> cliente;
-    private Map<String, String> libro;
+    private Cliente cliente;
+    private EjemplarLibro libro;
 
-    private Map<String, String> crearClienteResumen(Cliente cliente) {
+
+    private Cliente crearClienteResumen(Cliente cliente) {
         // Devuelve los datos resumidos del cliente
 
-        Map<String, String> clienteDTO = new LinkedHashMap<>();
+        Cliente clienteResumen = new Cliente();
 
-        clienteDTO.put("id", cliente.getId().toString());
-        clienteDTO.put("nombre", cliente.getNombre());
-        clienteDTO.put("apellido", cliente.getApellido());
+        clienteResumen.setId(cliente.getId());
+        clienteResumen.setNombre(cliente.getNombre());
+        clienteResumen.setApellido(cliente.getApellido());
 
-        return clienteDTO;
+        return clienteResumen;
     }
 
-    private Map<String, String> crearLibroResumen(Libro libro) {
+    private EjemplarLibro crearLibroResumen(EjemplarLibro libro) {
         // Devuelve los datos resumidos del libro
 
-        Map<String, String> libroDTO = new LinkedHashMap<>();
+        EjemplarLibro libroResumen = new EjemplarLibro();
 
-        libroDTO.put("id", libro.getId().toString());
-        libroDTO.put("titulo", libro.getTitulo());
-        libroDTO.put("autor", libro.getAutor());
+        // asignación del id
+        libroResumen.setId(libro.getId()); // id (libro_id, formato_id)
 
-        return libroDTO;
+        // asignación del libro
+        Libro l = new Libro();
+        libroResumen.setLibro(l);
+        libroResumen.getLibro().setId(libro.getLibro().getId()); //id
+        libroResumen.getLibro().setTitulo(libro.getLibro().getTitulo()); //titulo
+        libroResumen.getLibro().setAutor(libro.getLibro().getAutor()); //autor
+
+        // asignación del formato
+        libroResumen.setFormato(libro.getFormato());
+
+        return libroResumen;
     }
 }
